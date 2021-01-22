@@ -11,6 +11,7 @@ PLANNED UPDATES
 - A list of caregivers and their available times for helping
 - A guest page for temporary caregivers to have access to only necessary information to provide care (to protect the patient's information)
 - Access limited to those who have been invited
+- Ability to upload pictures of medication
 
 DEMO
 
