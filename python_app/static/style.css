@@ -1,0 +1,12 @@
+
+body {
+    padding: 20px;
+    height: 1000px;
+}
+
+a {
+    color: rgb(57, 87, 219);
+}
+li {
+    list-style-type: none;
+}
