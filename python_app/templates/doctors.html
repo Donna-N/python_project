@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Caring Crew</a>
+        <span class="nav-link"><a href="/dashboard/{{current_patient.id}}">Go back to {{current_patient.known_as_name}}'s Dashboard</a></span>
+        <span class = "nav-link"><a href="/logout">Logout</a></span>
+    </nav>
+    <br>
+    <h4>Hello, {{userid.first_name}}!</h4>
+    <br>
+    <br>
+    <table class = 'table table-sm table-striped'>
+        <h5>Provider List</h5>
+        <tr>
+            <th>Provider</th>
+            <th>Phone</th>
+            <th>Specialty</th>
+            <th>Actions</th>
+        </tr>
+        {%for doctor in all_doctors%}
+        <tr>
+            <td><a href="/doctors/{{current_patient.id}}/{{doctor.id}}">{{doctor.first_name}} {{doctor.last_name}}</a></td>
+            <td>{{doctor.phone}}</td>
+            <td>{{doctor.specialty}}</td>
+            <td>{%if current_patient not in doctor.treating.all%}<a href="/add_to_doctors/{{current_patient.id}}/{{doctor.id}}">Add to {{current_patient.known_as_name}}'s Providers</a>{%else%}<a href="/remove_from_doctors/{{current_patient.id}}/{{doctor.id}}">Remove from {{current_patient.known_as_name}}'s Providers</a>{%endif%}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    <br>
+    <h5>Add a Provider</h5>
+    <form action="/add_doctor/{{current_patient.id}}" method=POST>
+    {% csrf_token %}
+        <div class = "form-row mt-1">
+            <label for="doctor_title" class = "col-md-1">Title:</label>
+            <select class = "form-control col-md-3"name="title" id="title" required>
+                <option value="" disabled selected = "selected">--select an option--</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Physician's Assistant">Physician's Assistant</option>
+                <option value="Nurse Practitioner">Nurse Practitioner</option>
+                <option value="Registered Nurse">Registered Nurse</option>
+            </select>
+        </div>
+        <div class = "form-row mt-1">
+            <label for="First_name" class = "col-md-1">First Name: </label>
+            <input type="text" class = "form-control col-md-3" name = 'first_name'>
+        </div>
+        <div class = "form-row mt-1">
+            <label for="Last_name" class = "col-md-1">Last Name: </label>
+            <input type="text" class = "form-control col-md-3" name = 'last_name'>
+        </div>
+        <div class = "form-row mt-1">
+            <label for="Location" class = "col-md-1">Location: </label>
+            <input type="text" class = "form-control col-md-3" name = 'location'>
+        </div>
+        <div class = "form-row mt-1">
+            <label for="phone" class = "col-md-1">Phone: </label>
+            <input type="text" class = "form-control col-md-3" name = 'phone'>
+        </div>
+        <div class = "form-row mt-1">
+            <label for="network" class = "col-md-1">Network: </label>
+            <input type="text" class = "form-control col-md-3" name = 'network'>
+        </div>
+        <div class = "form-row mt-1">
+            <label for="specialty" class = "col-md-1">Specialty: </label>
+            <input type="text" class = "form-control col-md-3" name = 'specialty'>
+        </div>
+        <button type="submit" class = "btn btn-secondary mt-1">Add Health Care Provider</button>
+    </form>
+    {% if messages %}
+        <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
