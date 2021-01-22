@@ -1,3 +1,3 @@
 # python_project
 
-![](Python GIF.gif)
+![](PythonGIF.gif)
