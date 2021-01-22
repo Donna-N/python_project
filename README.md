@@ -1,4 +1,4 @@
-Caring Crew is a web-based app to help family members and other caregivers track the needs of their loved ones for whom they provide care. 
+Caring Crew is a web-based app, created using Python and Django, to help family members and other caregivers track the needs of their loved ones for whom they provide care. 
 
 FEATURES
 - Track and add doctors for each loved one and add notes from/for the doctor pertaining to that particular patient
